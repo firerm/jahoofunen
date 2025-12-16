@@ -1,10 +1,14 @@
 Automate your Laughter 🤖😂
 <div align="center">
+  <img src="logoen2.png" width="600px" alt="Daily Cartoon Logo">
+</div>
+
+<div align="center">
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 [![GitHub stars](https://img.shields.io/github/stars/firerm/jahoofunen?style=for-the-badge)](https://github.com/firerm/jahoofunen/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/firerm/jahoofunen?style=for-the-badge)](https://github.com/firerm/jahoofune/issues)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/firerm/jahoofune/graphs/commit-activity)
+
 
 </div>
 We automate our lights. We automate our heating. Why not automate our humor?
