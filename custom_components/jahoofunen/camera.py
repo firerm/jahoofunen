@@ -9,6 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 
 SCAN_INTERVAL = timedelta(minutes=15)
 API_BASE = "https://jahoo.gr/jfen/api.php"
+FALLBACK_IMAGE = "https://jahoo.gr/jfen/logos/photonotfound.png"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     async_add_entities([JFCartoonCamera()], True)
@@ -41,6 +42,9 @@ class JFCartoonCamera(Camera):
                 if data and 'images' in data and len(data['images']) > 0:
                     self._image_url = data['images'][0]
                 else:
-                    self._image_url = None
+                    self._image_url = FALLBACK_IMAGE
+            else:
+                self._image_url = FALLBACK_IMAGE
         except Exception as e:
             _LOGGER.error(f"Error updating JF Camera: {e}")
+            self._image_url = FALLBACK_IMAGE
