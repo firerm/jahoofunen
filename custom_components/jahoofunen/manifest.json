@@ -6,9 +6,9 @@
   ],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://jahoo.gr/jfen",
+  "documentation": "https://github.com/firerm/jahoofunen/blob/main/README.md",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/jahoo/issues",
+  "issue_tracker": "https://github.com/firerm/jahoofunen/issues",
   "requirements": [],
-  "version": "1.2.1"
+  "version": "0.0.1"
 }
