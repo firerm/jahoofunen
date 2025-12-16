@@ -26,14 +26,29 @@ Features:
 Just Click here : 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=firerm&repository=jahoofunen&category=integration)
 
-## 🎨 Dashboard Configuration (YAML)
+## 💿 Installation
+
+Once you have added this repository to HACS:
+  When you add The repo ** automaticaly**
+1.  **Restart:** Restart Home Assistant completely. * When you done : 
+2.  **Add Integration:**
+    * Go to **Settings** > **Devices & Services**.
+    * Click the **+ ADD INTEGRATION** button (bottom right).
+    * Search for **"Jahoo"**.
+    * Click on it to install.
+
+Done! You can now add the card ** choose manual ** to your dashboard using the YAML code above.
+you can customize it !
+
+## 🎨 Dashboard Configuration (YAML) * choose MANUAL *
 
 > [!NOTE]
 > **SETUP INSTRUCTION**
 >
 > The YAML code below creates a full card with the image, description, and navigation controls.
 >
-> **Please verify your Entity IDs:** The code uses default names like `camera.jfen_daily_cartoon`. If you changed the name during the integration setup, make sure to **update the entity IDs** in the code below to match your system.
+> **Please verify your Entity IDs:** The code uses default names like `camera.jfen_daily_cartoon`.
+
 
 ```yaml
 type: vertical-stack
