@@ -1,5 +1,12 @@
 Automate your Laughter 🤖😂
+<div align="center">
 
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![GitHub stars](https://img.shields.io/github/stars/firerm/ΟΝΟΜΑ_REPOSITORY?style=for-the-badge)](https://github.com/firerm/ΟΝΟΜΑ_REPOSITORY/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/firerm/ΟΝΟΜΑ_REPOSITORY?style=for-the-badge)](https://github.com/firerm/ΟΝΟΜΑ_REPOSITORY/issues)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/firerm/ΟΝΟΜΑ_REPOSITORY/graphs/commit-activity)
+
+</div>
 We automate our lights. We automate our heating. Why not automate our humor?
 
 Introducing the Daily Cartoon & Meme Viewer for Home Assistant. Because frankly, looking at your server CPU usage isn't funny (unless it's at 100%, then it's a tragedy).
