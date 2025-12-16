@@ -7,7 +7,8 @@ from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(minutes=15)
+# Update every 7 minutes to ensure timely day changes
+SCAN_INTERVAL = timedelta(minutes=7)
 API_BASE = "https://jahoo.gr/jfen/api.php"
 VIEWER_BASE_URL = "https://jahoo.gr/jfen/?mode=viewer"
 

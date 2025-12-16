@@ -1,13 +1,15 @@
 
 import logging
 import requests
+import time
 from datetime import datetime, timedelta
 from homeassistant.components.camera import Camera
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(minutes=15)
+# Update every 7 minutes to ensure timely day changes
+SCAN_INTERVAL = timedelta(minutes=7)
 API_BASE = "https://jahoo.gr/jfen/api.php"
 FALLBACK_IMAGE = "https://jahoo.gr/jfen/logos/photonotfound.png"
 
@@ -23,6 +25,7 @@ class JFCartoonCamera(Camera):
         self._attr_unique_id = "jfen_daily_cartoon_camera"
         self._images = []
         self._index = 0
+        self._last_change = 0
         
         # Register self to hass.data so buttons can find us
         self.hass.data[DOMAIN]['camera'] = self
@@ -33,7 +36,7 @@ class JFCartoonCamera(Camera):
         return {
             "current_image_index": self._index,
             "total_images": len(self._images),
-            "image_source_url": self._images[self._index] if self._images and self._index < len(self._images) else "None"
+            "last_change_timestamp": self._last_change
         }
 
     async def change_image(self, direction):
@@ -42,21 +45,27 @@ class JFCartoonCamera(Camera):
             return
         
         self._index = (self._index + direction) % len(self._images)
+        self._last_change = time.time()
         # Force HA to refresh the state/image immediately
         self.async_write_ha_state()
 
     def camera_image(self, width=None, height=None):
         """Return the current image bytes."""
-        current_url = FALLBACK_IMAGE
+        base_url = FALLBACK_IMAGE
         
         if self._images:
             # Ensure index is within bounds (in case update changed the list size)
             if self._index >= len(self._images):
                 self._index = 0
-            current_url = self._images[self._index]
+            base_url = self._images[self._index]
         
+        # CACHE BUSTING: Append a timestamp query param to the specific image URL
+        # This forces the request to bypass any caches (Browser, Cloudflare, HA Proxy)
+        separator = "&" if "?" in base_url else "?"
+        final_url = f"{base_url}{separator}cache_bust={int(time.time())}"
+
         try:
-            response = requests.get(current_url, timeout=10)
+            response = requests.get(final_url, timeout=10)
             if response.status_code == 200:
                 return response.content
         except Exception as e:
@@ -68,7 +77,8 @@ class JFCartoonCamera(Camera):
         """Fetch the list of images."""
         try:
             today = datetime.now().strftime('%Y-%m-%d')
-            url = f"{API_BASE}?date={today}"
+            # Add timestamp to prevent caching on the JSON request itself
+            url = f"{API_BASE}?date={today}&_t={int(time.time())}"
             response = requests.get(url, timeout=10)
             if response.status_code == 200:
                 data = response.json()
