@@ -1,0 +1,14 @@
+{
+  "domain": "jfen_daily_cartoon",
+  "name": "JF Daily Cartoon EN",
+  "codeowners": [
+    "@jahoo"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://jahoo.gr/",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/jahoo/issues",
+  "requirements": [],
+  "version": "1.2.1"
+}

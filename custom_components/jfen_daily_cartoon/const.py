@@ -1,0 +1,1 @@
+DOMAIN = "jfen_daily_cartoon"
