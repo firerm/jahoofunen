@@ -1,3 +1,20 @@
+Automate your Laughter 🤖😂
+
+We automate our lights. We automate our heating. Why not automate our humor?
+
+Introducing the Daily Cartoon & Meme Viewer for Home Assistant. Because frankly, looking at your server CPU usage isn't funny (unless it's at 100%, then it's a tragedy).
+
+Features:
+
+🎨 High-Quality Imagery: Crispy cartoons and memes.
+
+👉 Interactive: Browse through previous days if you missed the fun.
+
+🧩 Plug & Play: Works out of the box.
+
+Just Click Below : 
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=firerm&repository=jahoofunen&category=integration)
+
 ## 🎨 Dashboard Configuration (YAML)
 
 > [!NOTE]
