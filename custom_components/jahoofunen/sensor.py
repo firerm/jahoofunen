@@ -16,7 +16,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
 class JFCartoonSensor(SensorEntity):
     def __init__(self):
-        self._attr_name = "JF Daily Cartoon EN"
+        self._attr_name = "JFEN Daily Cartoon"
         self._attr_unique_id = "jfen_daily_cartoon_sensor"
         self._attr_native_value = "Initializing"
         self._attr_extra_state_attributes = {}

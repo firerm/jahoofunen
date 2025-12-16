@@ -1,6 +1,6 @@
 {
   "domain": "jfen_daily_cartoon",
-  "name": "JF Daily Cartoon EN",
+  "name": "JFEN Daily Cartoon",
   "codeowners": [
     "@jahoo"
   ],
@@ -10,5 +10,5 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/firerm/jahoofunen/issues",
   "requirements": [],
-  "version": "0.0.1"
+  "version": "0.0.2"
 }

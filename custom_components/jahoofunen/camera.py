@@ -16,7 +16,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 class JFCartoonCamera(Camera):
     def __init__(self):
         super().__init__()
-        self._attr_name = "JF Daily Cartoon EN"
+        self._attr_name = "JFEN Daily Cartoon"
         self._attr_unique_id = "jfen_daily_cartoon_camera"
         self._image_url = None
         self._last_image = None
