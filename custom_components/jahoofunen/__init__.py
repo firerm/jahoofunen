@@ -6,11 +6,12 @@ from .const import DOMAIN
 PLATFORMS = ["sensor", "camera", "button"]
 
 async def async_setup(hass: HomeAssistant, config: dict):
-    # Create a data storage for communication between button and camera
     hass.data.setdefault(DOMAIN, {})
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+    # Ensure data dict exists for this domain
+    hass.data.setdefault(DOMAIN, {})
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 

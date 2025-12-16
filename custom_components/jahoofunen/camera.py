@@ -27,13 +27,22 @@ class JFCartoonCamera(Camera):
         # Register self to hass.data so buttons can find us
         self.hass.data[DOMAIN]['camera'] = self
 
+    @property
+    def extra_state_attributes(self):
+        """Return attributes to help frontend updates."""
+        return {
+            "current_image_index": self._index,
+            "total_images": len(self._images),
+            "image_source_url": self._images[self._index] if self._images and self._index < len(self._images) else "None"
+        }
+
     async def change_image(self, direction):
         """Called by button entities to change the image."""
         if not self._images:
             return
         
         self._index = (self._index + direction) % len(self._images)
-        # Force HA to refresh the state/image
+        # Force HA to refresh the state/image immediately
         self.async_write_ha_state()
 
     def camera_image(self, width=None, height=None):
@@ -65,8 +74,12 @@ class JFCartoonCamera(Camera):
                 data = response.json()
                 if data and 'images' in data and len(data['images']) > 0:
                     self._images = data['images']
+                    # Keep index within bounds if list shrank
+                    if self._index >= len(self._images):
+                        self._index = 0
                 else:
                     self._images = []
+                    self._index = 0
             else:
                 self._images = []
         except Exception as e:
