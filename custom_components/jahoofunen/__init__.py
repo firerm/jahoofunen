@@ -3,9 +3,11 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from .const import DOMAIN
 
-PLATFORMS = ["sensor", "camera"]
+PLATFORMS = ["sensor", "camera", "button"]
 
 async def async_setup(hass: HomeAssistant, config: dict):
+    # Create a data storage for communication between button and camera
+    hass.data.setdefault(DOMAIN, {})
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):

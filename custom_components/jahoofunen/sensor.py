@@ -38,7 +38,7 @@ class JFCartoonSensor(SensorEntity):
                     images = data.get('images', [])
                     self._attr_extra_state_attributes = {
                         "description": data.get('description', ''),
-                        "images": images,
+                        "images_count": len(images),
                         "date": data.get('date', ''),
                         "viewer_url": viewer_url
                     }
