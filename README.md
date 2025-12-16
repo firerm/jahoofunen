@@ -40,6 +40,8 @@ Once you have added this repository to HACS:
 Done! You can now add the card ** choose manual ** to your dashboard using the YAML code above.
 you can customize it !
 
+PS: when you press the arrows wait 10 sec to change the photo this is protection for Home Assistant OS to not flood the system. Its normal.
+
 ## 🎨 Dashboard Configuration (YAML) * choose MANUAL *
 
 > [!NOTE]
