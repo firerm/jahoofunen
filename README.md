@@ -47,13 +47,13 @@ PS: when you press the arrows wait 10 sec to change the photo this is protection
 ## 🎨 Dashboard Configuration (YAML) * choose MANUAL *
 
 > [!NOTE]
-> **SETUP INSTRUCTION**
+> **NEW SETUP INSTRUCTION for the Last Version 0.1.4 **
 >
 > The YAML code below creates a full card with the image, description, and navigation controls.
 >
-> **Please verify your Entity IDs:** The code uses default names like `camera.jfen_daily_cartoon`.
->
-*** UPDATE For Version 0.1.4*** Please add this YAML to MANUAL : 
+> *** UPDATE For Version 0.1.4*** Please add this YAML to MANUAL :
+
+ 
 
 
 ```yaml
