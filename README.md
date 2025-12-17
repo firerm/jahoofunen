@@ -50,53 +50,51 @@ PS: when you press the arrows wait 10 sec to change the photo this is protection
 > The YAML code below creates a full card with the image, description, and navigation controls.
 >
 > **Please verify your Entity IDs:** The code uses default names like `camera.jfen_daily_cartoon`.
+>
+*** UPDATE For Version 0.1.4*** Please add this YAML to MANUAL : 
 
 
 ```yaml
 type: vertical-stack
 cards:
-  # -----------------------------------------------------------
-  # 1. IMAGE CARD (Camera Entity)
-  # -----------------------------------------------------------
+  # 1. Image Card
   - type: picture-entity
-    # REPLACE below if your entity ID is different
     entity: camera.jfen_daily_cartoon
+    camera_view: live
     show_name: false
     show_state: false
     tap_action:
       action: none
 
-  # -----------------------------------------------------------
-  # 2. TEXT & CONTENT (Sensor Entity)
-  # -----------------------------------------------------------
+  # 2. Content
   - type: markdown
     content: |
       ## {{ states('sensor.jfen_daily_cartoon') }}
       {{ state_attr('sensor.jfen_daily_cartoon', 'description') }}
 
-      <small style="display: block; text-align: right; margin-top: 10px; opacity: 0.6; line-height: 1.6;">
-        <a href="{{ state_attr('sensor.jfen_daily_cartoon', 'viewer_url') }}" target="_blank" style="text-decoration: none; color: inherit;">
+      <small style="display: block; text-align: right; margin-top: 10px; opacity: 0.6;">
+        <a href="{{ state_attr('sensor.jfen_daily_cartoon', 'viewer_url') }}" target="_blank" style="color: inherit;">
            VIEW FULL SIZE
-        </a><br>
-        <a href="[https://jahoo.gr](https://jahoo.gr)" target="_blank" style="text-decoration: none; color: inherit;">
-           jahoo.gr
         </a>
       </small>
 
-  # -----------------------------------------------------------
-  # 3. CONTROLS (Buttons)
-  # -----------------------------------------------------------
+  # 3. Controls (Prev / Refresh / Next)
   - type: horizontal-stack
     cards:
       - type: button
-        # Check your 'Previous' button entity ID
         entity: button.previous_image
         show_name: false
         icon: mdi:arrow-left
         tap_action:
           action: toggle
       - type: button
-        # Check your 'Next' button entity ID
+        entity: button.refresh_data
+        name: REFRESH
+        show_name: true
+        show_icon: false
+        tap_action:
+          action: toggle
+      - type: button
         entity: button.next_image
         show_name: false
         icon: mdi:arrow-right
