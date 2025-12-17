@@ -21,11 +21,11 @@ Features:
 
 🎨 High-Quality Imagery: Crispy cartoons and memes.
 
-👉 Interactive: Browse through previous days if you missed the fun.
+👉 Interactive: Browse through previous photos/ cartoon / memes .
 
-🧩 Plug & Play: Works out of the box.
+🧩 Plug & Play: Works out of the box. With smart Cache Control ( refresh every 15 minutes or manual by you !)
 
-Just Click here : 
+Just Click here and have Fun  : 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=firerm&repository=jahoofunen&category=integration)
 
 ## 💿 Installation
