@@ -8,8 +8,8 @@ from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-# Update every 7 minutes to ensure timely day changes
-SCAN_INTERVAL = timedelta(minutes=7)
+# Update list of images every 1 minute
+SCAN_INTERVAL = timedelta(minutes=1)
 API_BASE = "https://jahoo.gr/jfen/api.php"
 FALLBACK_IMAGE = "https://jahoo.gr/jfen/logos/photonotfound.png"
 
@@ -59,13 +59,22 @@ class JFCartoonCamera(Camera):
                 self._index = 0
             base_url = self._images[self._index]
         
-        # CACHE BUSTING: Append a timestamp query param to the specific image URL
-        # This forces the request to bypass any caches (Browser, Cloudflare, HA Proxy)
+        # AGGRESSIVE CACHE BUSTING
+        # 1. Use milliseconds to be extremely specific
+        # 2. Add headers to the request to tell upstream servers not to cache
+        ts = int(time.time() * 1000)
         separator = "&" if "?" in base_url else "?"
-        final_url = f"{base_url}{separator}cache_bust={int(time.time())}"
+        final_url = f"{base_url}{separator}_cb={ts}"
 
         try:
-            response = requests.get(final_url, timeout=10)
+            headers = {
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0",
+                "User-Agent": "Home Assistant/JFEN-Integration-v0.1.2"
+            }
+            
+            response = requests.get(final_url, headers=headers, timeout=15)
             if response.status_code == 200:
                 return response.content
         except Exception as e:
@@ -77,13 +86,26 @@ class JFCartoonCamera(Camera):
         """Fetch the list of images."""
         try:
             today = datetime.now().strftime('%Y-%m-%d')
-            # Add timestamp to prevent caching on the JSON request itself
+            # Cache bust the API JSON call as well
             url = f"{API_BASE}?date={today}&_t={int(time.time())}"
-            response = requests.get(url, timeout=10)
+            
+            headers = {
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0"
+            }
+            
+            response = requests.get(url, headers=headers, timeout=10)
             if response.status_code == 200:
                 data = response.json()
                 if data and 'images' in data and len(data['images']) > 0:
+                    old_len = len(self._images)
                     self._images = data['images']
+                    
+                    # If the image list changed, log it (debug)
+                    if old_len != len(self._images):
+                        _LOGGER.debug(f"JFEN Images updated. Count: {len(self._images)}")
+                        
                     # Keep index within bounds if list shrank
                     if self._index >= len(self._images):
                         self._index = 0

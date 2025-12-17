@@ -1,14 +1,15 @@
 
 import logging
 import requests
+import time
 from datetime import datetime, timedelta
 from homeassistant.components.sensor import SensorEntity
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-# Update every 7 minutes to ensure timely day changes
-SCAN_INTERVAL = timedelta(minutes=7)
+# Update every 1 minute to ensure changes are picked up quickly
+SCAN_INTERVAL = timedelta(minutes=1)
 API_BASE = "https://jahoo.gr/jfen/api.php"
 VIEWER_BASE_URL = "https://jahoo.gr/jfen/?mode=viewer"
 
@@ -29,8 +30,16 @@ class JFCartoonSensor(SensorEntity):
     def update(self):
         try:
             today = datetime.now().strftime('%Y-%m-%d')
-            url = f"{API_BASE}?date={today}"
-            response = requests.get(url, timeout=10)
+            # Cache bust the API JSON call
+            url = f"{API_BASE}?date={today}&_t={int(time.time())}"
+            
+            headers = {
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0"
+            }
+            
+            response = requests.get(url, headers=headers, timeout=10)
             if response.status_code == 200:
                 data = response.json()
                 if data and 'title' in data:
