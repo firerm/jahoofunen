@@ -1,3 +1,5 @@
+!Important please look at the bottom of the page for the New YAML code ! 
+----
 Automate your Laughter 🤖😂
 <div align="center">
   <img src="logoen2.png" width="600px" alt="Daily Cartoon Logo">
