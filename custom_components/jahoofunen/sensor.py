@@ -8,20 +8,27 @@ from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-# Update every 1 minute to ensure changes are picked up quickly
-SCAN_INTERVAL = timedelta(minutes=1)
+# Update every 15 minutes (manual refresh available via button)
+SCAN_INTERVAL = timedelta(minutes=15)
 API_BASE = "https://jahoo.gr/jfen/api.php"
 VIEWER_BASE_URL = "https://jahoo.gr/jfen/?mode=viewer"
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
-    async_add_entities([JFCartoonSensor()], True)
+    sen = JFCartoonSensor(hass)
+    async_add_entities([sen], True)
 
 class JFCartoonSensor(SensorEntity):
-    def __init__(self):
+    def __init__(self, hass):
+        self.hass = hass
         self._attr_name = "JFEN Daily Cartoon"
         self._attr_unique_id = "jfen_daily_cartoon_sensor"
         self._attr_native_value = "Initializing"
         self._attr_extra_state_attributes = {}
+        
+        # Register self for manual refresh
+        if DOMAIN not in self.hass.data:
+            self.hass.data[DOMAIN] = {}
+        self.hass.data[DOMAIN]['sensor'] = self
 
     @property
     def icon(self):
@@ -50,12 +57,14 @@ class JFCartoonSensor(SensorEntity):
                         "description": data.get('description', ''),
                         "images_count": len(images),
                         "date": data.get('date', ''),
-                        "viewer_url": viewer_url
+                        "viewer_url": viewer_url,
+                        "last_update_success": time.ctime()
                     }
                 else:
                     self._attr_native_value = "No Cartoon Today"
                     self._attr_extra_state_attributes = {
-                        "viewer_url": VIEWER_BASE_URL
+                        "viewer_url": VIEWER_BASE_URL,
+                        "last_update_success": time.ctime()
                     }
         except Exception as e:
             _LOGGER.error(f"Error updating JF Sensor: {e}")
