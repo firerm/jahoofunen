@@ -1,4 +1,7 @@
 Important: Please look at the bottom of the page for the New YAML code ! 
+If you want to make it as webpage on you Dashboard enter this URL : 
+
+https://jahoo.gr/jfen/?mode=viewer
 --
 Automate your Laughter 🤖😂
 <div align="center">
